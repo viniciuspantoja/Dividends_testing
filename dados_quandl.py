@@ -15,12 +15,13 @@ import os
 
 os.chdir('/Users/ViniciusPantoja/Dropbox/Dividendos/Codigos')
 
+tickers = pd.read_csv('S&P_Ticker.csv')
 
-stock = 'AAPL'
+stock = 'GOOG'
 kr = gm.FinancialsDownloader()
 kr_frames = kr.download(stock)
 
-#%%
+#%% DIVIDEND PAYOUT RATIO
 
 ###
 def get_net_income(financial_statements):
@@ -45,11 +46,26 @@ def div_ratio(financial_statements):
     return temp
 
 
+
+
 dividend_ratio = div_ratio(kr_frames)
 
-#%%
+#%% EARNINGS PER SHARE
 
-tickers = pd.read_csv('S&P_Ticker.csv')
+def get_earnings_per_share(financial_statements):
+    temp = financial_statements['income_statement']
+    index_item = temp.index[temp['title'] == 'Earnings per share'] + 2
+    return temp.loc[index_item]
+
+a = get_earnings_per_share(financial_statements)
+    
+    
+
+#%% DIVIDEND COVERAGE RATIO
+
+
+
+
 
 
 
